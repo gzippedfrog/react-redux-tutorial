@@ -1,11 +1,21 @@
-export function FetchedPosts({ posts }) {
-    if (!posts.length) {
-        return <button className="btn btn-primary">Download</button>;
-    }
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPosts } from "../redux/actions";
+import { Post } from "./Post";
 
+export function FetchedPosts() {
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts.fetchedPosts);
+
+  if (!posts.length) {
     return (
-        <div>
-            <h1>Fetched Posts</h1>
-        </div>
+      <button
+        className="btn btn-primary"
+        onClick={() => dispatch(fetchPosts())}
+      >
+        Download
+      </button>
     );
+  }
+
+  return posts.map((post) => <Post key={post.id} post={post} />);
 }

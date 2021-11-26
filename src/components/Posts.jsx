@@ -4,14 +4,9 @@ import { Post } from "./Post";
 function Posts({ syncPosts }) {
   if (!syncPosts.length) return <p>No posts</p>;
 
-  return syncPosts.map(post => <Post key={post.id} post={post} />);
+  return syncPosts.map((post) => <Post key={post.id} post={post} />);
 }
 
-function mapStateToProps(state) {
-  console.log(state);
-  return {
-    syncPosts: state.posts.posts
-  };
-}
+const mapStateToProps = (state) => ({ syncPosts: state.posts.posts });
 
 export default connect(mapStateToProps, null)(Posts);
